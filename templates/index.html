@@ -1,0 +1,183 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam Message Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin: 20px 0;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .result {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spam Message Classifier</h1>
+        <h2>By Ajay Kumar Jha</h2>
+        <form method="POST" action="/predict">
+            <label for="message">Enter your message:</label>
+            <input type="text" id="message" name="message" placeholder="Type your message here..." required>
+
+            <label for="model">Select classifier:</label>
+            <select id="model" name="model" required>
+                {% for model_name in model_names %}
+                    <option value="{{ model_name }}" {% if selected_model == model_name %} selected {% endif %}>
+                        {{ model_name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <input type="submit" value="Predict">
+
+            {% if result %}
+                <div class="result">
+                    <strong>Result:</strong> The message "{{ message }}" is classified as <strong>{{ result }}</strong>.
+                </div>
+            {% endif %}
+
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam Message Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin: 20px 0;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        .result {
+            text-align: center;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Spam Message Classifier</h1>
+        <form method="POST" action="/predict">
+            <label for="message">Enter your message:</label>
+            <input type="text" id="message" name="message" placeholder="Type your message here..." required>
+
+            <label for="models">Select classifiers (hold Ctrl or Cmd to select multiple):</label>
+            <select id="models" name="models" multiple required>
+                {% for model_name in model_names %}
+                    <option value="{{ model_name }}" {% if model_name in selected_models %} selected {% endif %}>
+                        {{ model_name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <input type="submit" value="Predict">
+
+            {% if results %}
+                <div class="result">
+                    <strong>Results:</strong>
+                    <ul>
+                        {% for model, result in results.items() %}
+                            <li>{{ model }} classified the message as <strong>{{ result }}</strong>.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if error %}
+                <div class="error">{{ error }}</div>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>

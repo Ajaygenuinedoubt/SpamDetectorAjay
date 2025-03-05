@@ -1,0 +1,10 @@
+python -m venv myenv
+myenv\Scripts\activate
+git init
+git remote add origin https://
+git status
+git add .
+git commit -m " first commit"
+git config --global user.email "ajaykumarjha382003@gmail.com"
+git config --global user.name "Ajaygenuinedoubt" 
+git push origin master
